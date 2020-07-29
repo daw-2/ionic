@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Liste</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="gender" (ionChange)="filterGender($event)" value="all">
+      <ion-segment-button value="all">
+        <ion-label>Tous</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="male">
+        <ion-label>Homme</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="female">
+        <ion-label>Femme</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="loaded">
+    <ion-list>
+      <ion-item *ngFor="let user of users | async | filter:gender; index as i"
+        (click)="goToUser(user)"
+      >
+        <ion-avatar slot="start">
+          <img [src]="user.picture.medium">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ i }}: {{ user.name.first }} {{ user.name.last }}</h2>
+          <p></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="next($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+
+  <ion-list *ngIf="!loaded">
+    <ion-item *ngFor="let skeleton of skeletons">
+      <ion-avatar slot="start">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajouter un tweet</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modal.dismiss()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="createTweet()">
+    <ion-textarea placeholder="Tweeter ici..."
+      [(ngModel)]="tweet.content" name="content"
+      class="ion-padding"
+      ></ion-textarea>
+
+      <div class="ion-padding">
+        <ion-button color="primary" expand="block" type="submit" class="ion-no-margin">
+          Tweeter
+        </ion-button>
+      </div>
+  </form>
+</ion-content>

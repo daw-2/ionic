@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="save()" #form="ngForm">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating">Pseudo</ion-label>
+        <ion-input type="text"
+          [(ngModel)]="username"
+          required minlength="3"
+          name="username" #input="ngModel"></ion-input>
+      </ion-item>
+
+      <div *ngIf="input.dirty && !input.valid" class="ion-padding">
+        Votre pseudo est vide ou trop court.
+      </div>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button color="primary" expand="block" type="submit" class="ion-no-margin" [disabled]="busy || !form.valid">
+        Enregistrer
+        <ion-spinner name="dots" 
+          class="ion-margin-start" *ngIf="busy"
+        ></ion-spinner>
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

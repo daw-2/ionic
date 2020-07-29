@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="save()" #form="ngForm">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating">Prénom</ion-label>
+        <ion-input type="text"
+          [(ngModel)]="user.firstname"
+          required
+          name="firstname" #firstname="ngModel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nom</ion-label>
+        <ion-input type="text"
+          [(ngModel)]="user.name"
+          required
+          name="name" #name="ngModel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Date de naissance</ion-label>
+        <ion-datetime [(ngModel)]="user.birthday"
+          monthShortNames="jan, fev, mar, avr, mai, juin, juil, aout, sep, oct, nov, dec"
+          cancelText="Annuler" doneText="Ok"
+          required
+          name="birthday" #birthday="ngModel"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Genre de musique</ion-label>
+        <ion-select [(ngModel)]="user.music" multiple="true"
+          name="music" #music="ngModel" required>
+          <ion-select-option *ngFor="let music of musics"
+            [value]="music">{{ music }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Ville</ion-label>
+        <ion-input type="text"
+          [(ngModel)]="user.city"
+          required
+          name="city" #city="ngModel"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding" *ngIf="form.dirty && !form.valid">
+      Il y a une erreur dans le formulaire.
+    </div>
+
+    <div class="ion-padding">
+      <ion-button color="primary" expand="block" type="submit" class="ion-no-margin" [disabled]="busy || !form.valid">
+        Enregistrer
+        <ion-spinner name="dots" 
+          class="ion-margin-start" *ngIf="busy"
+        ></ion-spinner>
+      </ion-button>
+    </div>
+  </form>
+</ion-content>
