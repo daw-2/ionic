@@ -8,6 +8,7 @@ interface Profile {
   birthday: string;
   music: Array<string>;
   city: string;
+  darkMode: boolean;
 }
 
 @Component({
@@ -22,8 +23,10 @@ export class ProfilePage implements OnInit {
     name: '',
     birthday: '',
     music: [],
-    city: ''
+    city: '',
+    darkMode: false,
   };
+  success = false;
   musics: Array<string> = [
     'A', 'B', 'C', 'D'
   ];
@@ -45,9 +48,21 @@ export class ProfilePage implements OnInit {
 
     setTimeout(() => {
       this.storage.set('profile', this.user).then(
-        () => this.busy = false
+        () => {
+          this.busy = false;
+          this.success = true
+        }
       );
     }, 1000);
+
+    setTimeout(() => this.success = false, 5000);
+  }
+
+  // Active ou non le dark mode sur l'application
+  toggleDarkMode() {
+    console.log('dark mode');
+    // On ajoute ou on supprime la classe dark de body
+    document.body.classList.toggle('dark');
   }
 
 }

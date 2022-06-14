@@ -47,10 +47,20 @@
           required
           name="city" #city="ngModel"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label>Dark Mode</ion-label>
+        <ion-toggle (ionChange)="toggleDarkMode()" [(ngModel)]="user.darkMode" name="darkMode"></ion-toggle>
+      </ion-item>
     </ion-list>
 
     <div class="ion-padding" *ngIf="form.dirty && !form.valid">
       Il y a une erreur dans le formulaire.
+    </div>
+
+    <div class="ion-padding" *ngIf="success">
+      <ion-text color="success">
+        Vos réglages ont été enregistrés.
+      </ion-text>
     </div>
 
     <div class="ion-padding">
@@ -59,6 +69,12 @@
         <ion-spinner name="dots" 
           class="ion-margin-start" *ngIf="busy"
         ></ion-spinner>
+      </ion-button>
+    </div>
+
+    <div class="ion-padding">
+      <ion-button color="danger" expand="block" (click)="removeData()">
+        Supprimer mes données
       </ion-button>
     </div>
   </form>
